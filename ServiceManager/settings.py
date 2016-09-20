@@ -47,6 +47,7 @@ INSTALLED_APPS = (
     'django.contrib.gis',
     'corsheaders',
     'rest_framework',
+    'pages',
 )
 
 MIDDLEWARE_CLASSES = (

@@ -1,0 +1,59 @@
+{% load i18n %}
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{%  trans 'Service Manager' %}</title>
+    <link rel="stylesheet" href="{% static 'bootstrap-3.3.5/css/bootstrap.min.css' %}"/>
+    <script src="{% static 'bootstrap-3.3.5/js/bootstrap.min.js' %}"></script>
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <h1>{% trans 'Service Catalog ' %}</h1>
+        </div>
+        <div class="row">
+            <div class="pull-right col-lg-5">
+                <div class="col-lg-2">
+                    <a href="#" class="btn btn-default">{% trans 'sign in' %}</a>
+                </div>
+                <div class="col-lg-2">
+                    <a href="#" class="btn btn-primary">{% trans 'sign up' %}</a>
+                </div>
+            </div>
+        </div>
+        <!--div class="row">
+            <div class="col-lg-7">
+                <div class="row">
+                    <h2>{% trans 'Search' %}</h2>
+                </div>
+                <div class="row">
+                    <input type="text" class="form-control" placeholder="{% trans 'search for a service' %}"/>
+                </div>
+            </div>
+        </div-->
+        <div class="row">
+            <div class="col-lg-7">
+                <div class="row">
+                    <h2>{% trans 'Institutions' %}</h2>
+                </div>
+                <div class="row">
+                    <div class="list-group">
+                        <a href="#" class="list-group-item">
+                            institution one
+                        </a>
+                        <a href="#" class="list-group-item">
+                            institution two
+                        </a>
+                        <a href="#" class="list-group-item">
+                            institution three
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="{% static 'pages/main.js' %}"></script>
+</body>
+</html>

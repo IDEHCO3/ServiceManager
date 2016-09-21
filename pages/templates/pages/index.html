@@ -6,9 +6,12 @@
     <meta charset="UTF-8">
     <title>{%  trans 'Service Manager' %}</title>
     <link rel="stylesheet" href="{% static 'bootstrap-3.3.5/css/bootstrap.min.css' %}"/>
+    <link rel="stylesheet" href="{% static 'pages/main.css' %}"/>
+
+    <script src="{% static 'jquery-2.1.4/jquery.min.js' %}"></script>
     <script src="{% static 'bootstrap-3.3.5/js/bootstrap.min.js' %}"></script>
 </head>
-<body>
+<body class="background-secondary">
     <div class="container">
         <div class="row">
             <h1>{% trans 'Service Catalog ' %}</h1>
@@ -16,10 +19,10 @@
         <div class="row">
             <div class="pull-right col-lg-5">
                 <div class="col-lg-2">
-                    <a href="#" class="btn btn-default">{% trans 'sign in' %}</a>
+                    <p><a href="#" class="btn btn-default">{% trans 'sign in' %}</a></p>
                 </div>
                 <div class="col-lg-2">
-                    <a href="#" class="btn btn-primary">{% trans 'sign up' %}</a>
+                    <p><a href="#" class="btn btn-primary">{% trans 'sign up' %}</a></p>
                 </div>
             </div>
         </div>
@@ -34,21 +37,26 @@
             </div>
         </div-->
         <div class="row">
-            <div class="col-lg-7">
+            <div class="col-lg-12">
                 <div class="row">
                     <h2>{% trans 'Institutions' %}</h2>
                 </div>
                 <div class="row">
-                    <div class="list-group">
-                        <a href="#" class="list-group-item">
-                            institution one
-                        </a>
-                        <a href="#" class="list-group-item">
-                            institution two
-                        </a>
-                        <a href="#" class="list-group-item">
-                            institution three
-                        </a>
+                    <div class="well well-lg highlight">
+                        <h3>IBGE</h3>
+                        <p>Uma grande instituição</p>
+                    </div>
+                    <div class="well well-lg highlight">
+                        <h3>IBAMA</h3>
+                        <p>Cuidando da nossa fauna e flora</p>
+                    </div>
+                    <div class="well well-lg highlight">
+                        <h3>INPE</h3>
+                        <p>Trabalhando com novas pesquisas</p>
+                    </div>
+                    <div class="well well-lg highlight">
+                        <h3>ANA</h3>
+                        <p>Árvores everywhere</p>
                     </div>
                 </div>
             </div>

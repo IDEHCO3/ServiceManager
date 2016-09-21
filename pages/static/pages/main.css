@@ -1,0 +1,15 @@
+.background-default {
+    background-color: #9f9f9f;
+}
+
+.background-primary {
+    background-color: #bfbfbf;
+}
+
+.background-secondary {
+    background-color: #dfdfdf;
+}
+
+.highlight:hover {
+  border-color: blue;
+}

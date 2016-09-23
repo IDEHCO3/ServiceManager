@@ -16,6 +16,7 @@ class Service(models.Model):
 
 class Container(models.Model):
     name = models.CharField(max_length=255, null=False, blank=False, unique=True)
+    folderOfDatabase = models.CharField(max_length=1000)
     institution = models.ForeignKey(InstitutionProfile, related_name='container')
 
     @property

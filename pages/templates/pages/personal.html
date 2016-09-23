@@ -1,0 +1,40 @@
+{% load i18n %}
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>{%  trans 'Personal page' %}</title>
+        <link rel="stylesheet" href="{% static 'bootstrap-3.3.5/css/bootstrap.min.css' %}"/>
+        <link rel="stylesheet" href="{% static 'pages/main.css' %}"/>
+
+        <script src="{% static 'jquery-2.1.4/jquery.min.js' %}"></script>
+        <script src="{% static 'bootstrap-3.3.5/js/bootstrap.min.js' %}"></script>
+    </head>
+    <body class="background-secondary">
+        <div class="container">
+            <div class="row">
+                <h1>IBGE</h1>
+            </div>
+            <div class="row">
+                <div class="col-lg-7">
+                    <div class="row">
+                        <h3>Links of services:</h3>
+                        <ul class="list-group">
+                            <li class="list-group-item">http://ibge.org/link1 <button class="pull-right btn btn-default"><span class="glyphicon glyphicon-remove"></span></button></li>
+                            <li class="list-group-item">http://ibge.org/link2 <button class="pull-right btn btn-default"><span class="glyphicon glyphicon-remove"></span></button></li>
+                            <li class="list-group-item">http://ibge.org/link3 <button class="pull-right btn btn-default"><span class="glyphicon glyphicon-remove"></span></button></li>
+                            <li class="list-group-item">http://ibge.org/link4 <button class="pull-right btn btn-default"><span class="glyphicon glyphicon-remove"></span></button></li>
+                            <li class="list-group-item">http://ibge.org/link5 <button class="pull-right btn btn-default"><span class="glyphicon glyphicon-remove"></span></button></li>
+                        </ul>
+                    </div>
+                    <div class="row">
+                        <h3>My remote API:</h3>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script src="{% static 'pages/personal.js' %}"></script>
+    </body>
+</html>

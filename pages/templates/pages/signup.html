@@ -1,0 +1,31 @@
+{% load i18n %}
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>{%  trans 'Sign up' %}</title>
+        <link rel="stylesheet" href="{% static 'bootstrap-3.3.5/css/bootstrap.min.css' %}"/>
+        <link rel="stylesheet" href="{% static 'pages/main.css' %}"/>
+
+        <script src="{% static 'jquery-2.1.4/jquery.min.js' %}"></script>
+        <script src="{% static 'bootstrap-3.3.5/js/bootstrap.min.js' %}"></script>
+    </head>
+    <body class="background-secondary">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 col-md-offset-3">
+                    <h1>Sign up</h1>
+                    <p>
+                        To sign up in this site, please send a email to idehco3@gmail.com with the following information:
+                    </p>
+                    <ul class="list-group">
+                        <li class="list-group-item">Name of institution</li>
+                        <li class="list-group-item">Name of leader of institution</li>
+                        <li class="list-group-item">CNPJ</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

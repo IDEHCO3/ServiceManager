@@ -19,4 +19,5 @@ from django.contrib import admin
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
     url(r'^servicecatalog/', include('pages.urls', namespace='pages')),
+    #url(r'^institutions/', include('institution.urls', namespace='institutions'))
 ]

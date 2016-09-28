@@ -21,16 +21,31 @@
                     <div class="row">
                         <h3>Links of services:</h3>
                         <ul class="list-group">
-                            <li class="list-group-item">http://ibge.org/link1 <button class="pull-right btn btn-default"><span class="glyphicon glyphicon-remove"></span></button></li>
-                            <li class="list-group-item">http://ibge.org/link2 <button class="pull-right btn btn-default"><span class="glyphicon glyphicon-remove"></span></button></li>
-                            <li class="list-group-item">http://ibge.org/link3 <button class="pull-right btn btn-default"><span class="glyphicon glyphicon-remove"></span></button></li>
-                            <li class="list-group-item">http://ibge.org/link4 <button class="pull-right btn btn-default"><span class="glyphicon glyphicon-remove"></span></button></li>
-                            <li class="list-group-item">http://ibge.org/link5 <button class="pull-right btn btn-default"><span class="glyphicon glyphicon-remove"></span></button></li>
+                            <li class="list-group-item">http://ibge.org/link1 <button class="pull-right close">&times;</button></li>
+                            <li class="list-group-item">http://ibge.org/link2 <button class="pull-right close">&times;</button></li>
+                            <li class="list-group-item">http://ibge.org/link3 <button class="pull-right close">&times;</button></li>
+                            <li class="list-group-item">http://ibge.org/link4 <button class="pull-right close">&times;</button></li>
+                            <li class="list-group-item">http://ibge.org/link5 <button class="pull-right close">&times;</button></li>
                         </ul>
+                        <div class="input-group">
+                            <input type="text" class="form-control" placeholder="Type here the link to your API"/>
+                            <span class="input-group-btn">
+                                <button class="btn btn-default">Add API link</button>
+                            </span>
+                        </div>
                     </div>
                     <div class="row">
-                        <h3>My remote API:</h3>
-
+                        <div>
+                            <h3>My remote API:</h3>
+                            <button class="btn btn-default">Create an API</button>
+                        </div>
+                        <div class="hidden">
+                            <h4>Links:</h4>
+                            <ul class="list-group">
+                                <li class="list-group-item">http://linkto-Geonode/ <button class="pull-right close"><span class="glyphicon glyphicon-globe"></span></button></li>
+                                <li class="list-group-item">http://linkto-my-API/ <button class="pull-right close"><span class="glyphicon glyphicon-globe"></span></button></li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
             </div>

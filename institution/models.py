@@ -5,7 +5,7 @@ from django.contrib.auth.models import User
 
 class InstitutionProfile(models.Model):
     name = models.CharField(max_length=1000, null=False, blank=False)
-    initials = models.CharField(max_length=255, null=True, blank=False)
+    initials = models.CharField(max_length=255, null=True, blank=False, unique=True)
     description = models.CharField(max_length=2000, null=True, blank=False)
     image = models.ImageField(upload_to='images/institutions/', null=True, blank=False)
     user = models.OneToOneField(User, related_name='institution_profile')

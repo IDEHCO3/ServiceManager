@@ -49,7 +49,7 @@ INSTALLED_APPS = (
     'django.contrib.gis',
     'corsheaders',
     'rest_framework',
-    #'institution',
+    'institution',
     'pages',
 )
 

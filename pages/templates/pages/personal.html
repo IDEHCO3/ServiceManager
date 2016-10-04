@@ -11,16 +11,19 @@
         <script src="{% static 'jquery-2.1.4/jquery.min.js' %}"></script>
         <script src="{% static 'bootstrap-3.3.5/js/bootstrap.min.js' %}"></script>
     </head>
-    <body class="background-secondary">
-        <div class="container">
+    <body class="background-secondary" ng-app="personalApp">
+        <div class="container" ng-controller="personalController">
             <div class="row">
-                <h1>IBGE</h1>
+                <h1>{$ institution.name $}</h1>
             </div>
             <div class="row">
                 <div class="col-lg-7">
                     <div class="row">
                         <h3>Links of services:</h3>
                         <ul class="list-group">
+
+                            <li class="list-group-item" ng-repeat="link in institution.links">{$ link $}<button class="pull-right close">&times;</button></li>
+
                             <li class="list-group-item">http://ibge.org/link1 <button class="pull-right close">&times;</button></li>
                             <li class="list-group-item">http://ibge.org/link2 <button class="pull-right close">&times;</button></li>
                             <li class="list-group-item">http://ibge.org/link3 <button class="pull-right close">&times;</button></li>
@@ -50,6 +53,7 @@
                 </div>
             </div>
         </div>
+        <script src="{% static 'angular/angular.min.js' %}"></script>
         <script src="{% static 'pages/personal.js' %}"></script>
     </body>
 </html>

@@ -13,6 +13,19 @@ class ServiceListByInstitution(generics.ListCreateAPIView):
     queryset = Service.objects.all()
     serializer_class = ServiceSerializer
 
+    def post(self, request, *args, **kwargs):
+        institution_initials = self.kwargs.get('institution_initials', None)
+        institution = InstitutionProfile.objects.get(initials=institution_initials)
+        request.data['institution'] = institution.id
+        response = super(ServiceListByInstitution, self).post(request, *args, **kwargs)
+        return response
+
+    def get_queryset(self):
+        institution_initials = self.kwargs.get('institution_initials', None)
+        institution = InstitutionProfile.objects.get(initials=institution_initials)
+        self.queryset = institution.services.all()
+        return self.queryset
+
 class ServiceDeleteByInstitution(generics.DestroyAPIView):
     queryset = Service.objects.all()
     serializer_class = ServiceSerializer

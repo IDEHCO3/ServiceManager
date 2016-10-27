@@ -33,25 +33,32 @@
         $httpProvider.interceptors.push('authInterceptor');
     });
 
-    app.controller("UserController", ['$http', '$scope', '$window', function ($http, $scope, $window) {
-
-        $scope.user = {username: "unknown", first_name: "Unknown"};
+    app.service("userService",['$http', '$window', function ($http, $window) {
+        this.user = {username: "unknown", first_name: "Unknown"};
         var url_authentication_me = urls.authentication_me+"/";
-        $scope.authenticated = false;
+        this.authenticated = false;
+        var that = this;
 
-        if ($window.sessionStorage.token != null) {
-            $http.get(url_authentication_me)
-                .success(function (data) {
-                    $scope.user = data;
-                    $scope.authenticated = true;
-                })
-                .error(function (data) {
-                    console.log(data);
-                    delete $window.sessionStorage.token;
-                });
-        }
+        this.loadUser = function(){
+            if ($window.sessionStorage.token != null) {
+                $http.get(url_authentication_me)
+                    .success(function (data) {
+                        that.user = data;
+                        that.authenticated = true;
+                    })
+                    .error(function (data) {
+                        console.log(data);
+                        delete $window.sessionStorage.token;
+                    });
+            }
+        };
 
-        $scope.logout = function () {
+        this.login = function(){
+            var path = $window.location.pathname;
+            $window.location = urls.authetication+'/?next='+path;
+        };
+
+        this.logout = function () {
             if ($window.sessionStorage.token != null) {
                 delete $window.sessionStorage.token;
             }
@@ -59,10 +66,10 @@
             $window.location = urls.home;
         };
 
-        $scope.login = function(){
-            path = $window.location.pathname;
-            $window.location = urls.authetication+'/?next='+path;
-        };
+
+        this.loadUser();
+
+        console.log(this.user);
     }]);
 
 })();

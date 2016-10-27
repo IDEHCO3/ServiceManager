@@ -7,18 +7,21 @@
 
     var urls ={
         base: '/idehco3/servicemanager/',
-        institutions: 'institutions/',
-        services: 'services/'
+        profile: '/idehco3/servicemanager/institutions/profile/',
+        institutions: '/idehco3/servicemanager/institutions/',
+        services: '/services/'
     };
 
-    app.controller('personalController', ['$scope', '$http', function($scope, $http){
+    app.controller('personalController', ['$scope', '$http', 'userService', function($scope, $http, userService){
+
         $scope.institution = null;
         $scope.new_link = '';
-        $http.get(urls.base+urls.institution+'ibge/')//hard code here, we need to fix this later
+
+        $http.get(urls.profile)//hard code here, we need to fix this later
             .success(function(data){
                 console.log("data: ",data);
                 $scope.institution = data;
-                $http.get(urls.base+urls.institutions+'ibge/'+urls.services) //hard code here, we need to fix this later
+                $http.get(urls.institutions+$scope.institution.initials+urls.services)
                     .success(function(data){
                         $scope.institution.links = data;
                         console.log("data2: ", data);
@@ -32,12 +35,12 @@
                 console.log("error: ",data);
             });
 
-        $scope.addService = function(){
+        $scope.addServiceLink = function(){
             if($scope.institution == null) return;
             var data = {
                 url: $scope.new_link
             };
-            $http.post(urls.base+urls.institutions+$scope.institution.initials+'/'+urls.services, data) //this doesn't look good!
+            $http.post(urls.institutions+$scope.institution.initials+urls.services, data)
                 .success(function(data){
                     console.log('success: ',data);
                 })

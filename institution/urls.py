@@ -2,6 +2,7 @@ from django.conf.urls import patterns, url
 from institution import views
 
 urlpatterns = patterns('',
+    url(r'^profile/$', views.ProfileDetail.as_view() ,name='profile_detail'),
     url(r'^(?P<initials>\w+)/$', views.InstitutionDetail.as_view(), name='institution_detail'),
     url(r'^(?P<institution_initials>\w+)/services/$', views.ServiceListByInstitution.as_view(), name='service_list'),
     url(r'^(?P<institution_initials>\w+)/services/(?P<pk>\d+)/$', views.ServiceDeleteByInstitution.as_view(), name='service_delete'),

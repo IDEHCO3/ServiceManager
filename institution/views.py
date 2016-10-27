@@ -1,6 +1,11 @@
 from rest_framework import generics
+from rest_framework.views import APIView
 from institution.models import InstitutionProfile, Service, Container
 from institution.serializers import InstitutionProfileSerializer, ServiceSerializer, ContainerSerializer
+
+from rest_framework_jwt.authentication import JSONWebTokenAuthentication
+from rest_framework import permissions
+from rest_framework.response import Response
 
 class InstitutionDetail(generics.RetrieveAPIView):
     queryset = InstitutionProfile.objects.all()
@@ -8,6 +13,18 @@ class InstitutionDetail(generics.RetrieveAPIView):
 
     lookup_field = "initials"
     lookup_url_kwarg = "initials"
+
+class ProfileDetail(APIView):
+
+    permission_classes = (permissions.IsAuthenticated, )
+    authentication_classes = (JSONWebTokenAuthentication, )
+
+    def get(self, request, *args, **kwargs):
+        institution = request.user.institution_profile
+        institution_serializer = InstitutionProfileSerializer(institution)
+        response = Response(institution_serializer.data)
+        return response
+
 
 class ServiceListByInstitution(generics.ListCreateAPIView):
     queryset = Service.objects.all()

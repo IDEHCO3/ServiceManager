@@ -12,7 +12,7 @@
         <script src="{% static 'bootstrap-3.3.5/js/bootstrap.min.js' %}"></script>
     </head>
     <body class="background-secondary" ng-app="personalApp">
-        <div ng-controller="UserController">
+        <div>
             <div class="container" ng-controller="personalController">
                 <div class="row">
                     <h1>{$ institution.name $}</h1>
@@ -34,7 +34,7 @@
                             <div class="input-group">
                                 <input type="text" class="form-control" ng-model="new_link" placeholder="Type here the link to your API"/>
                                 <span class="input-group-btn">
-                                    <button class="btn btn-default" ng-click="addService()">Add API link</button>
+                                    <button class="btn btn-default" ng-click="addServiceLink()">Add API link</button>
                                 </span>
                             </div>
                         </div>

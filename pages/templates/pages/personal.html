@@ -22,14 +22,10 @@
                         <div class="row">
                             <h3>Links of services:</h3>
                             <ul class="list-group">
-
-                                <li class="list-group-item" ng-repeat="link in institution.links">{$ link.url $}<button class="pull-right close">&times;</button></li>
-
-                                <li class="list-group-item">http://ibge.org/link1 <button class="pull-right close">&times;</button></li>
-                                <li class="list-group-item">http://ibge.org/link2 <button class="pull-right close">&times;</button></li>
-                                <li class="list-group-item">http://ibge.org/link3 <button class="pull-right close">&times;</button></li>
-                                <li class="list-group-item">http://ibge.org/link4 <button class="pull-right close">&times;</button></li>
-                                <li class="list-group-item">http://ibge.org/link5 <button class="pull-right close">&times;</button></li>
+                                <li class="list-group-item" ng-repeat="link in institution.links">
+                                    {$ link.url $}
+                                    <button class="pull-right close" ng-click="deleteServiceLink($index, link)">&times;</button>
+                                </li>
                             </ul>
                             <div class="input-group">
                                 <input type="text" class="form-control" ng-model="new_link" placeholder="Type here the link to your API"/>

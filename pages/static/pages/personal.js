@@ -33,6 +33,7 @@
             })
             .error(function(data){
                 console.log("error: ",data);
+                userService.logout();
             });
 
         $scope.addServiceLink = function(){
@@ -43,10 +44,32 @@
             $http.post(urls.institutions+$scope.institution.initials+urls.services, data)
                 .success(function(data){
                     console.log('success: ',data);
+                    $scope.institution.links.push(data);
+                    $scope.new_link = "";
                 })
                 .error(function(data){
                     console.log('error: ',data);
+                    //userService.logout();
                 });
         };
+
+        $scope.deleteServiceLink = function(index, link){
+            if($scope.institution == null) return;
+
+            $http.delete(urls.institutions+$scope.institution.initials+urls.services+link.id)
+                .success(function(){
+                    var new_list = [];
+                    for(var i=0; i<$scope.length; i++){
+                        if(i!=index)
+                            new_list.push($scope.institution.links[i]);
+                    }
+                    $scope.institution.links = new_list;
+                    console.log('success to delete', $scope.institution.links);
+                })
+                .error(function(data){
+                    console.log('error: ', data);
+                    //userService.logout();
+                });
+        }
     }]);
 })();

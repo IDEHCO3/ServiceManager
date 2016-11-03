@@ -59,9 +59,10 @@
             $http.delete(urls.institutions+$scope.institution.initials+urls.services+link.id)
                 .success(function(){
                     var new_list = [];
-                    for(var i=0; i<$scope.length; i++){
-                        if(i!=index)
+                    for(var i=0; i<$scope.institution.links.length; i++){
+                        if(i!=index) {
                             new_list.push($scope.institution.links[i]);
+                        }
                     }
                     $scope.institution.links = new_list;
                     console.log('success to delete', $scope.institution.links);

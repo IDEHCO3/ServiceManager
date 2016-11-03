@@ -68,8 +68,6 @@
 
 
         this.loadUser();
-
-        console.log(this.user);
     }]);
 
 })();

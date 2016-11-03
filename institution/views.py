@@ -7,6 +7,10 @@ from rest_framework_jwt.authentication import JSONWebTokenAuthentication
 from rest_framework import permissions
 from rest_framework.response import Response
 
+class InstitutionList(generics.ListAPIView):
+    queryset = InstitutionProfile.objects.all()
+    serializer_class = InstitutionProfileSerializer
+
 class InstitutionDetail(generics.RetrieveAPIView):
     queryset = InstitutionProfile.objects.all()
     serializer_class = InstitutionProfileSerializer

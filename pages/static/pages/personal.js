@@ -9,7 +9,7 @@
         base: '/idehco3/servicemanager/',
         profile: '/idehco3/servicemanager/institutions/profile/',
         institutions: '/idehco3/servicemanager/institutions/',
-        services: '/services/'
+        services: '/links/'
     };
 
     app.controller('personalController', ['$scope', '$http', 'userService', function($scope, $http, userService){

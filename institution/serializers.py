@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from institution.models import InstitutionProfile, Container, Service
+from institution.models import InstitutionProfile, Container, Link
 from rest_framework.reverse import reverse
 
 
@@ -21,7 +21,7 @@ class ServiceSerializer(serializers.ModelSerializer):
     #id = CustomerHyperlink(view_name='service_delete')
 
     class Meta:
-        model = Service
+        model = Link
         fields = ['url', 'institution', 'id']
 
 class ContainerSerializer(serializers.ModelSerializer):

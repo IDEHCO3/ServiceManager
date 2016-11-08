@@ -10,9 +10,11 @@ class InstitutionProfile(models.Model):
     image = models.ImageField(upload_to='images/institutions/', null=True, blank=False)
     user = models.OneToOneField(User, related_name='institution_profile')
 
-class Service(models.Model):
+class Link(models.Model):
     url = models.CharField(max_length=1000, null=False, blank=False)
     institution = models.ForeignKey(InstitutionProfile, related_name='services')
+
+
 
 class Container(models.Model):
     name = models.CharField(max_length=255, null=False, blank=False, unique=True)

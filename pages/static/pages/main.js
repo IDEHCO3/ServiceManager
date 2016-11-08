@@ -21,5 +21,18 @@
             .error(function(data){
                 console.log('Error: ',data);
             });
+
+        $scope.openServices = function(url){
+            $http({
+                method: "OPTIONS",
+                url: url
+            })
+            .success(function(data){
+                console.log("success: ",data);
+            })
+            .error(function(data){
+                console.log("Error: ",data);
+            });
+        };
     }]);
 })();

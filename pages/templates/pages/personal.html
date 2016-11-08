@@ -23,15 +23,23 @@
                             <h3>Links of services:</h3>
                             <ul class="list-group">
                                 <li class="list-group-item" ng-repeat="link in institution.links">
-                                    {$ link.url $}
+                                    <b>{$ link.name $} :</b> {$ link.url $}
                                     <button class="pull-right close" ng-click="deleteServiceLink($index, link)">&times;</button>
                                 </li>
                             </ul>
                             <div class="input-group">
-                                <input type="text" class="form-control" ng-model="new_link" placeholder="Type here the link to your API"/>
-                                <span class="input-group-btn">
-                                    <button class="btn btn-default" ng-click="addServiceLink()">Add API link</button>
-                                </span>
+                                <label>Name</label>
+                                <input type="text" class="form-control" ng-model="name" placeholder="Type here the name to the link"/>
+                            </div>
+
+                            <div class="">
+                                <label>Link</label>
+                                <div class="input-group">
+                                    <input type="text" class="form-control" ng-model="new_link" placeholder="Type here the link to your API"/>
+                                    <span class="input-group-btn">
+                                        <button class="btn btn-default" ng-click="addServiceLink()">Add API link</button>
+                                    </span>
+                                </div>
                             </div>
                         </div>
                         <div class="row">

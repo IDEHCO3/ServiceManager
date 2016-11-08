@@ -11,10 +11,14 @@ class InstitutionProfile(models.Model):
     user = models.OneToOneField(User, related_name='institution_profile')
 
 class Link(models.Model):
+    name = models.CharField(max_length=255, null=True, blank=True)
     url = models.CharField(max_length=1000, null=False, blank=False)
-    institution = models.ForeignKey(InstitutionProfile, related_name='services')
+    institution = models.ForeignKey(InstitutionProfile, related_name='links')
 
-
+# class Service(models.Model):
+#     name = models.CharField(max_length=255, null=False, blank=False)
+#     url = models.CharField(max_length=1000, null=False, blank=False)
+#     link = models.ForeignKey(Link, related_name='services')
 
 class Container(models.Model):
     name = models.CharField(max_length=255, null=False, blank=False, unique=True)

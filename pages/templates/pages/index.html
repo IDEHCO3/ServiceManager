@@ -43,7 +43,7 @@
                         <h2>{% trans 'Institutions' %}</h2>
                     </div>
                     <div class="row">
-                        <div class="well well-lg highlight" ng-repeat="institution in institutions">
+                        <div class="well well-lg highlight" ng-repeat="institution in institutions" ng-click="openServices(institution.url)">
                             <h3>{$ institution.name $}</h3>
                             <p>{$ institution.description $}</p>
                         </div>

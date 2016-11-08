@@ -16,6 +16,7 @@
 
         $scope.institution = null;
         $scope.new_link = '';
+        $scope.name = '';
 
         $http.get(urls.profile)//hard code here, we need to fix this later
             .success(function(data){
@@ -39,6 +40,7 @@
         $scope.addServiceLink = function(){
             if($scope.institution == null) return;
             var data = {
+                name: $scope.name,
                 url: $scope.new_link
             };
             $http.post(urls.institutions+$scope.institution.initials+urls.services, data)
@@ -46,6 +48,7 @@
                     console.log('success: ',data);
                     $scope.institution.links.push(data);
                     $scope.new_link = "";
+                    $scope.name = '';
                 })
                 .error(function(data){
                     console.log('error: ',data);

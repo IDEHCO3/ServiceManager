@@ -12,3 +12,6 @@
 
 #static root files
 static_root/*
+
+#folder created by application
+containers/*

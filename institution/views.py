@@ -37,29 +37,29 @@ class LinkListByInstitution(generics.ListCreateAPIView):
     queryset = Link.objects.all()
     serializer_class = LinkSerializer
 
-    def makeRequest(self, request):
-        response_from_api = requests.options(request.data['url'])
-        if response_from_api.status_code == 200:
-            return response_from_api
-        return None
-
-
-    def getServices(self, response):
-        services = {}
-        jsonld = json.loads(response.content)
-        if '@context' in jsonld:
-            for key in jsonld['@context']:
-                attr = jsonld['@context'][key]
-                if isinstance(attr, dict) and attr['@type'] == '@id' and key in jsonld:
-                    services[key] = jsonld[key]
-        return services
-
-    def saveServices(self, response, services):
-        if response.status_code == 201:
-            id = response.data['id']
-            link = Link.objects.get(id=id)
-            for key in services:
-                Service(name=key, url=services[key], link=link).save()
+    # def makeRequest(self, request):
+    #     response_from_api = requests.options(request.data['url'])
+    #     if response_from_api.status_code == 200:
+    #         return response_from_api
+    #     return None
+    #
+    #
+    # def getServices(self, response):
+    #     services = {}
+    #     jsonld = json.loads(response.content)
+    #     if '@context' in jsonld:
+    #         for key in jsonld['@context']:
+    #             attr = jsonld['@context'][key]
+    #             if isinstance(attr, dict) and attr['@type'] == '@id' and key in jsonld:
+    #                 services[key] = jsonld[key]
+    #     return services
+    #
+    # def saveServices(self, response, services):
+    #     if response.status_code == 201:
+    #         id = response.data['id']
+    #         link = Link.objects.get(id=id)
+    #         for key in services:
+    #             Service(name=key, url=services[key], link=link).save()
 
 
     def post(self, request, *args, **kwargs):
@@ -103,9 +103,16 @@ class LinkDeleteByInstitution(generics.DestroyAPIView):
 #
 #         return queryset
 
-class ContainerCreate(generics.ListCreateAPIView):
+class ContainerList(generics.ListCreateAPIView):
     queryset = Container.objects.all()
     serializer_class = ContainerSerializer
+
+    def post(self, request, *args, **kwargs):
+        institution_initials = self.kwargs.get('institution_initials', None)
+        institution = InstitutionProfile.objects.get(initials=institution_initials)
+        request.data['institution'] = institution.id
+        response = super(ContainerList, self).post(request, *args, **kwargs)
+        return response
 
 class ContainerDetail(generics.RetrieveDestroyAPIView):
     queryset = Container.objects.all()

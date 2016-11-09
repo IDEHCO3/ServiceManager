@@ -9,7 +9,7 @@
         base: '/idehco3/servicemanager/',
         profile: '/idehco3/servicemanager/institutions/profile/',
         institutions: '/idehco3/servicemanager/institutions/',
-        services: '/links/'
+        links: '/links/'
     };
 
     app.controller('personalController', ['$scope', '$http', 'userService', function($scope, $http, userService){
@@ -22,7 +22,7 @@
             .success(function(data){
                 console.log("data: ",data);
                 $scope.institution = data;
-                $http.get(urls.institutions+$scope.institution.initials+urls.services)
+                $http.get(urls.institutions+$scope.institution.initials+urls.links)
                     .success(function(data){
                         $scope.institution.links = data;
                         console.log("data2: ", data);
@@ -43,7 +43,7 @@
                 name: $scope.name,
                 url: $scope.new_link
             };
-            $http.post(urls.institutions+$scope.institution.initials+urls.services, data)
+            $http.post(urls.institutions+$scope.institution.initials+urls.links, data)
                 .success(function(data){
                     console.log('success: ',data);
                     $scope.institution.links.push(data);
@@ -59,7 +59,7 @@
         $scope.deleteServiceLink = function(index, link){
             if($scope.institution == null) return;
 
-            $http.delete(urls.institutions+$scope.institution.initials+urls.services+link.id)
+            $http.delete(urls.institutions+$scope.institution.initials+urls.links+link.id)
                 .success(function(){
                     var new_list = [];
                     for(var i=0; i<$scope.institution.links.length; i++){

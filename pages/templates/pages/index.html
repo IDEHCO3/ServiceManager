@@ -43,9 +43,26 @@
                         <h2>{% trans 'Institutions' %}</h2>
                     </div>
                     <div class="row">
-                        <div class="well well-lg highlight" ng-repeat="institution in institutions" ng-click="openServices(institution.url)">
-                            <h3>{$ institution.name $}</h3>
-                            <p>{$ institution.description $}</p>
+                        <div class="well well-lg highlight" ng-repeat="institution in institutions">
+                            <div ng-click="openLinks(institution)">
+                                <h3>{$ institution.name $} - {$ institution.initials $}</h3>
+                                <p>{$ institution.description $}</p>
+                            </div>
+                            <div ng-if="institution.links && institution.activated">
+                                <h4>List of links:</h4>
+                                <ul class="list-group">
+                                    <li class="list-group-item highlight" ng-repeat="link in institution.links">
+                                        <div ng-click="openServices(institution, $index, link)">
+                                            <h5><b>{$link.name$}: </b><a href="{$ link.url $}">{$ link.url $}</a></h5>
+                                        </div>
+                                        <ul class="list-group" ng-if="link.services && link.activated">
+                                            <li class="list-group-item highlight" ng-repeat="service in link.services">
+                                                <h6><b>{$ service.name $}: </b><a href="{$service.url$}">{$ service.url $}</a></h6>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </div>
                         </div>
                         <!--
                         <div class="well well-lg highlight">

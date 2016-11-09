@@ -33,5 +33,5 @@ class LinkSerializer(serializers.ModelSerializer):
 class ContainerSerializer(serializers.ModelSerializer):
     class Meta:
         model = Container
-        fields = ['name', 'folderOfDatabase', 'institution']
+        fields = ['name', 'institution']
 

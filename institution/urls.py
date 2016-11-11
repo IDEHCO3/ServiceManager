@@ -13,6 +13,6 @@ urlpatterns = [
     #url(r'^(?P<institution_initials>\w+)/services/$', views.ServiceList.as_view()),
     #url(r'^(?P<institution_initials>\w+)/links/(?P<link_id>\d+)/services/$', views.ServiceList.as_view()),
 
-    url(r'^(?P<institution_initials>\w+)/container/$', views.ContainerCreate.as_view(), name='container_create'),
+    url(r'^(?P<institution_initials>\w+)/container/$', views.ContainerList.as_view(), name='container_create'),
     url(r'^(?P<institution_initials>\w+)/container/(?P<pk>\d+)/$', views.ContainerDetail.as_view(), name='container_detail')
 ]

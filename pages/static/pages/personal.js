@@ -9,7 +9,8 @@
         base: '/idehco3/servicemanager/',
         profile: '/idehco3/servicemanager/institutions/profile/',
         institutions: '/idehco3/servicemanager/institutions/',
-        links: '/links/'
+        links: '/links/',
+        container: '/container/'
     };
 
     app.controller('personalController', ['$scope', '$http', 'userService', function($scope, $http, userService){
@@ -17,6 +18,7 @@
         $scope.institution = null;
         $scope.new_link = '';
         $scope.name = '';
+        $scope.container_name = '';
 
         $http.get(urls.profile)//hard code here, we need to fix this later
             .success(function(data){
@@ -74,6 +76,18 @@
                     console.log('error: ', data);
                     //userService.logout();
                 });
-        }
+        };
+
+        $scope.createAPI = function(){
+            if($scope.institution == null) return;
+
+            $http.post(urls.institutions+$scope.institution.initials+urls.container, {name: $scope.container_name})
+                .success(function(data){
+                    console.log('Success to create container: ', data);
+                })
+                .error(function(data){
+                    console.log('Error to create container: ', data);
+                });
+        };
     }]);
 })();

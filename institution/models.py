@@ -22,7 +22,7 @@ class Container(models.Model):
     containers = "containers"
     containers_prefix = "serviceManagerAPI."
     name = models.CharField(max_length=255, null=False, blank=False, unique=True)
-    institution = models.ForeignKey(InstitutionProfile, related_name='container')
+    institution = models.OneToOneField(InstitutionProfile, related_name='container')
 
     @property
     def name_api(self):

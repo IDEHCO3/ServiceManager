@@ -15,3 +15,6 @@ static_root/*
 
 #folder created by application
 containers/*
+
+#ignore the cetificates of authentication
+CA/*

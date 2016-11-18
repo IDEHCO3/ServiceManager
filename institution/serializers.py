@@ -24,14 +24,13 @@ class LinkSerializer(serializers.ModelSerializer):
         model = Link
         fields = ['name', 'url', 'institution', 'id']
 
-# class ServiceSerializer(serializers.ModelSerializer):
-#
-#     class Meta:
-#         model = Service
-#         fields = ['id', 'name', 'url', 'link']
-
 class ContainerSerializer(serializers.ModelSerializer):
     class Meta:
         model = Container
-        fields = ['name', 'institution']
+        fields = ['id', 'name', 'institution']
+
+    def create(self, validated_data):
+        obj = Container(**validated_data)
+        obj.save()
+        return obj
 

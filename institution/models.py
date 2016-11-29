@@ -20,7 +20,9 @@ class Link(models.Model):
 
 class Container(models.Model):
     containers = "containers"
-    containers_prefix = "serviceManagerAPI."
+    base_port = 8000
+    containers_prefix = "serviceManager."
+    host = "ecoide.org"
     name = models.CharField(max_length=255, null=False, blank=False, unique=True)
     institution = models.OneToOneField(InstitutionProfile, related_name='container')
 
@@ -53,6 +55,51 @@ class Container(models.Model):
         else:
             return None
 
+    @property
+    def api_port(self):
+        if self.id is None:
+            return None
+        return (self.id*2)+Container.base_port
+
+    @property
+    def geonode_port(self):
+        if self.id is None:
+            return None
+        return (self.id*2)+Container.base_port+1
+
+    @property
+    def api_link(self):
+        if self.id is None:
+            return None
+        return "http://"+Container.host+":"+str(self.api_port)+"/"
+
+    @property
+    def geonode_link(self):
+        if self.id is None:
+            return None
+        return "http://"+Container.host+":"+str(self.geonode_port)+"/"
+
+    def get_container_base_name(self):
+        if self.id is None:
+            return None
+        return Container.containers_prefix+str(self.id)
+
+    @property
+    def api_container_name(self):
+        return self.get_container_base_name()+"_api"
+
+    @property
+    def geonode_container_name(self):
+        return self.get_container_base_name()+"_geonode"
+
+    @property
+    def api_container_db_name(self):
+        return self.get_container_base_name()+"_database_api"
+
+    @property
+    def geonode_container_db_name(self):
+        return self.get_container_base_name()+"_database_api"
+
     def create_folders(self):
         if not os.path.exists(os.getcwd()+"/"+Container.containers):
             os.mkdir(os.getcwd()+"/"+Container.containers)
@@ -70,38 +117,84 @@ class Container(models.Model):
         #cli = docker.Client(base_url='unix://var/run/docker.sock')
         return cli
 
-    def create_containers(self):
-        self.create_folders()
+    def create_container(self, image, port, database_ip, name):
         cli = self.connectInDocker()
         container = cli.create_container(
-            image="idehco3_base",
-            command="./run.sh",
-            name=Container.containers_prefix+str(self.id),
+            image=image,
+            name=name,
+            ports=[80],
+            environment={"DB_IP": database_ip},
             host_config=cli.create_host_config(
-                binds=[self.api_folder+':/code'],
+                port_bindings={
+                    80: port,
+                },
                 dns=['146.164.34.2']))
         cli.start(container=container.get('Id'))
+
+    def create_database_container(self, database_folder, name):
+        cli = self.connectInDocker()
+        container = cli.create_container(
+            image="database",
+            name=name,
+            ports=[5432],
+            host_config=cli.create_host_config(
+                binds=[database_folder+':/var/lib/postgresql/data'],
+                dns=['146.164.34.2']))
+        cli.start(container=container.get('Id'))
+        ip = cli.inspect_container(container.get('Id'))['NetworkSettings']['Networks']['bridge']['IPAddress']
+        return ip
+
+    def create_containers(self):
+        self.create_folders()
+        #database_ip = self.create_database_container(self.api_folder, self.api_container_db_name)
+        #self.create_container("idehco3_base", self.api_port, database_ip, self.api_container_name)
+        #database_ip = self.create_database_container(self.geonode_folder, self.geonode_container_db_name)
+        #self.create_container("geonode", self.api_port, database_ip, self.geonode_container_name)
 
 
     def delete_containers(self):
         cli = self.connectInDocker()
-        cli.stop(container=Container.containers_prefix+str(self.id))
-        cli.remove_container(container=Container.containers_prefix+str(self.id))
+        containers = [
+            self.api_container_name,
+            self.api_container_db_name,
+            self.geonode_container_name,
+            self.geonode_container_db_name
+        ]
+
+        for container in containers:
+            if container is None:
+                continue
+            cli.stop(container=container)
+            cli.remove_container(container=container)
+
         if self.container_folder is not None and os.path.exists(self.container_folder):
             shutil.rmtree(self.container_folder)
 
-    def save(self):
-        super(Container, self).save()
+    def save(self, force_insert=False, force_update=False, using=None,
+             update_fields=None):
+        super(Container, self).save(force_insert, force_update, using, update_fields)
         self.create_containers()
 
-    def delete(self):
+    def delete(self, using=None):
         self.delete_containers()
-        super(Container, self).delete()
+        super(Container, self).delete(using)
 
     def start_api(self):
-        cli = self.connectInDocker()
-        cli.start(container=Container.containers_prefix+str(self.id))
+        if self.id is not None:
+            cli = self.connectInDocker()
+            cli.start(container=self.api_container_name)
 
     def stop_api(self):
-        cli = self.connectInDocker()
-        cli.stop(container=Container.containers_prefix+str(self.id))
+        if self.id is not None:
+            cli = self.connectInDocker()
+            cli.stop(container=self.api_container_name)
+
+    def start_geonode(self):
+        if self.id is not None:
+            cli = self.connectInDocker()
+            cli.start(container=self.geonode_container_name)
+
+    def stop_geonode(self):
+        if self.id is not None:
+            cli = self.connectInDocker()
+            cli.stop(container=self.geonode_container_name)

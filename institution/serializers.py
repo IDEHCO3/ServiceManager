@@ -27,7 +27,7 @@ class LinkSerializer(serializers.ModelSerializer):
 class ContainerSerializer(serializers.ModelSerializer):
     class Meta:
         model = Container
-        fields = ['id', 'name', 'institution']
+        fields = ['id', 'name', 'institution', 'api_link', 'geonode_link']
 
     def create(self, validated_data):
         obj = Container(**validated_data)

@@ -52,11 +52,11 @@
                                     </span>
                                 </div>
                             </div>
-                            <div class="hidden">
+                            <div ng-if="container != null">
                                 <h4>Links:</h4>
                                 <ul class="list-group">
-                                    <li class="list-group-item">http://linkto-Geonode/ <button class="pull-right close"><span class="glyphicon glyphicon-globe"></span></button></li>
-                                    <li class="list-group-item">http://linkto-my-API/ <button class="pull-right close"><span class="glyphicon glyphicon-globe"></span></button></li>
+                                    <li class="list-group-item"><b>API: </b>{$ container.api_link $}<a class="pull-right close" href="{$ container.api_link $}" ><span class="glyphicon glyphicon-globe"></span></a></li>
+                                    <li class="list-group-item"><b>Geonode: </b>{$ container.geonode_link $}<a class="pull-right close" href="{$ container.geonode_link $}"><span class="glyphicon glyphicon-globe"></span></a></li>
                                 </ul>
                             </div>
                         </div>

@@ -19,6 +19,7 @@
         $scope.new_link = '';
         $scope.name = '';
         $scope.container_name = '';
+        $scope.container = null;
 
         $http.get(urls.profile)//hard code here, we need to fix this later
             .success(function(data){
@@ -33,11 +34,22 @@
                         $scope.institution.links = [];
                         console.log("error2: ", data);
                     });
+
+                $http.get(urls.institutions+$scope.institution.initials+urls.container)
+                    .success(function(data){
+                        console.log('Success to get container: ', data);
+                        $scope.container = data[0];
+                    })
+                    .error(function(data){
+                        console.log('Error: ', data);
+                    });
             })
             .error(function(data){
                 console.log("error: ",data);
                 userService.logout();
             });
+
+
 
         $scope.addServiceLink = function(){
             if($scope.institution == null) return;
@@ -84,6 +96,7 @@
             $http.post(urls.institutions+$scope.institution.initials+urls.container, {name: $scope.container_name})
                 .success(function(data){
                     console.log('Success to create container: ', data);
+                    $scope.container = data;
                 })
                 .error(function(data){
                     console.log('Error to create container: ', data);

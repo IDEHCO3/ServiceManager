@@ -146,8 +146,8 @@ class Container(models.Model):
 
     def create_containers(self):
         self.create_folders()
-        #database_ip = self.create_database_container(self.api_folder, self.api_container_db_name)
-        #self.create_container("idehco3_base", self.api_port, database_ip, self.api_container_name)
+        database_ip = self.create_database_container(self.api_folder, self.api_container_db_name)
+        self.create_container("idehco3_base", self.api_port, database_ip, self.api_container_name)
         #database_ip = self.create_database_container(self.geonode_folder, self.geonode_container_db_name)
         #self.create_container("geonode", self.api_port, database_ip, self.geonode_container_name)
 
@@ -164,8 +164,11 @@ class Container(models.Model):
         for container in containers:
             if container is None:
                 continue
-            cli.stop(container=container)
-            cli.remove_container(container=container)
+            try:
+                cli.stop(container=container)
+                cli.remove_container(container=container)
+            except:
+                continue
 
         if self.container_folder is not None and os.path.exists(self.container_folder):
             shutil.rmtree(self.container_folder)

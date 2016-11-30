@@ -45,7 +45,9 @@
                         <div class="row">
                             <div>
                                 <h3>My remote API:</h3>
-                                <div class="input-group">
+                            </div>
+                            <div>
+                                <div class="input-group" ng-if="container == null">
                                     <input type="text" class="form-control" ng-model="container_name" placeholder="Type here the name to your API"/>
                                     <span class="input-group-btn">
                                         <button class="btn btn-default" ng-click="createAPI()">Create an API</button>

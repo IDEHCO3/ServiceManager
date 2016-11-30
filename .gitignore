@@ -18,3 +18,6 @@ containers/*
 
 #ignore the cetificates of authentication
 CA/*
+
+#database backup
+backup/*

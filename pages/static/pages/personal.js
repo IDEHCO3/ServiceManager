@@ -90,10 +90,10 @@
                 });
         };
 
-        $scope.createAPI = function(){
-            if($scope.institution == null) return;
+        $scope.createAPI = function(container_name){
+            if($scope.institution == null || container_name == '') return;
 
-            $http.post(urls.institutions+$scope.institution.initials+urls.container, {name: $scope.container_name})
+            $http.post(urls.institutions+$scope.institution.initials+urls.container, {name: container_name})
                 .success(function(data){
                     console.log('Success to create container: ', data);
                     $scope.container = data;

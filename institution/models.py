@@ -128,8 +128,7 @@ class Container(models.Model):
             host_config=cli.create_host_config(
                 port_bindings={
                     80: port,
-                },
-                dns=['146.164.34.2']))
+                }))
         cli.start(container=container.get('Id'))
 
     def create_database_container(self, database_folder, name):
@@ -139,11 +138,22 @@ class Container(models.Model):
             name=name,
             ports=[5432],
             host_config=cli.create_host_config(
-                binds=[database_folder+':/var/lib/postgresql/data'],
-                dns=['146.164.34.2']))
+                binds=[database_folder+':/var/lib/postgresql/data']))
         cli.start(container=container.get('Id'))
         ip = cli.inspect_container(container.get('Id'))['NetworkSettings']['Networks']['bridge']['IPAddress']
         return ip
+
+    def create_geonode_container(self, port, name):
+        cli = self.connectInDocker()
+        container = cli.create_container(
+            image="geonode",
+            name=name,
+            ports=[8000],
+            host_config=cli.create_host_config(
+                port_bindings={
+                    8000: port,
+                }))
+        cli.start(container=container.get('Id'))
 
     def create_containers(self):
         self.create_folders()
@@ -152,10 +162,7 @@ class Container(models.Model):
         database_ip = self.create_database_container(self.api_folder, self.api_container_db_name)
         self.create_container("service_manager_api", self.api_port, database_ip, self.api_container_name)
 
-        #data_copy = zipfile.ZipFile('backup/data_geonode.zip', 'r')
-        #data_copy.extractall(self.geonode_folder)
-        #database_ip = self.create_database_container(self.geonode_folder, self.geonode_container_db_name)
-        #self.create_container("geonode", self.api_port, database_ip, self.geonode_container_name)
+        self.create_geonode_container(self.geonode_port, self.geonode_container_name)
 
 
     def delete_containers(self):
@@ -164,17 +171,14 @@ class Container(models.Model):
             self.api_container_name,
             self.api_container_db_name,
             self.geonode_container_name,
-            self.geonode_container_db_name
+            #self.geonode_container_db_name
         ]
 
         for container in containers:
             if container is None:
                 continue
-            try:
-                cli.stop(container=container)
-                cli.remove_container(container=container)
-            except:
-                continue
+            cli.stop(container=container)
+            cli.remove_container(container=container)
 
         if self.container_folder is not None and os.path.exists(self.container_folder):
             shutil.rmtree(self.container_folder)
@@ -203,11 +207,11 @@ class Container(models.Model):
     def start_geonode(self):
         if self.id is not None:
             cli = self.connectInDocker()
-            cli.start(container=self.geonode_container_db_name)
+            #cli.start(container=self.geonode_container_db_name)
             cli.start(container=self.geonode_container_name)
 
     def stop_geonode(self):
         if self.id is not None:
             cli = self.connectInDocker()
             cli.stop(container=self.geonode_container_name)
-            cli.stop(container=self.geonode_container_db_name)
+            #cli.stop(container=self.geonode_container_db_name)

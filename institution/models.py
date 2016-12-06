@@ -215,3 +215,16 @@ class Container(models.Model):
             cli = self.connectInDocker()
             cli.stop(container=self.geonode_container_name)
             #cli.stop(container=self.geonode_container_db_name)
+
+    def _get_status(self, container_name):
+        data = {"status": "unknow"}
+        cli = self.connectInDocker()
+        status = cli.inspect_container(container_name)
+        data['status'] = status['State']['Status']
+        return data
+
+    def get_api_status(self):
+        return self._get_status(self.api_container_name)
+
+    def get_geonode_status(self):
+        return self._get_status(self.geonode_container_name)

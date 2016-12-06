@@ -67,3 +67,56 @@ class ContainerDetail(generics.RetrieveDestroyAPIView):
     queryset = Container.objects.all()
     serializer_class = ContainerSerializer
 
+class ContainerControls(APIView):
+
+    def get(self, request, *args, **kwargs): # return the status of container
+        if 'container' in kwargs:
+            initials = kwargs.get('institution_initials')
+            institution = InstitutionProfile.objects.get(initials=initials)
+            container = institution.container
+            data = {"status": "unknow"}
+            if kwargs.get('container').lower() == 'api':
+                data = container.get_api_status()
+
+            if kwargs.get('container').lower() == 'geonode':
+                data = container.get_geonode_status()
+
+            return Response(data, status=200)
+        else:
+            return Response({"Error": "page not found!"}, status=404)
+
+    def post(self, request, *args, **kwargs): # start the container
+        if 'container' in kwargs:
+            initials = kwargs.get('institution_initials')
+            institution = InstitutionProfile.objects.get(initials=initials)
+            container = institution.container
+            data = {"status": "unknow"}
+            if kwargs.get('container').lower() == 'api':
+                container.start_api()
+                data = container.get_api_status()
+
+            if kwargs.get('container').lower() == 'geonode':
+                container.start_geonode()
+                data = container.get_geonode_status()
+
+            return Response(data, status=200)
+        else:
+            return Response({"Error": "page not found!"}, status=404)
+
+    def delete(self, request, *args, **kwargs): # stop the container
+        if 'container' in kwargs:
+            initials = kwargs.get('institution_initials')
+            institution = InstitutionProfile.objects.get(initials=initials)
+            container = institution.container
+            data = {"status": "unknow"}
+            if kwargs.get('container').lower() == 'api':
+                container.stop_api()
+                data = container.get_api_status()
+
+            if kwargs.get('container').lower() == 'geonode':
+                container.stop_geonode()
+                data = container.get_geonode_status()
+
+            return Response(data, status=200)
+        else:
+            return Response({"Error": "page not found!"}, status=404)

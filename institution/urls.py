@@ -14,5 +14,8 @@ urlpatterns = [
     #url(r'^(?P<institution_initials>\w+)/links/(?P<link_id>\d+)/services/$', views.ServiceList.as_view()),
 
     url(r'^(?P<institution_initials>\w+)/container/$', views.ContainerList.as_view(), name='container_create'),
-    url(r'^(?P<institution_initials>\w+)/container/(?P<pk>\d+)/$', views.ContainerDetail.as_view(), name='container_detail')
+    url(r'^(?P<institution_initials>\w+)/container/(?P<pk>\d+)/$', views.ContainerDetail.as_view(), name='container_detail'),
+
+    url(r'^(?P<institution_initials>\w+)/container/controls/(?P<container>api)/$', views.ContainerControls.as_view(), name='container_control_api'),
+    url(r'^(?P<institution_initials>\w+)/container/controls/(?P<container>geonode)/$', views.ContainerControls.as_view(), name='container_control_geonode'),
 ]

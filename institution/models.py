@@ -23,7 +23,7 @@ class Container(models.Model):
     containers = "containers"
     base_port = 8000
     containers_prefix = "serviceManager."
-    host = "ecoide.org"
+    host = "idehco4.tk"
     name = models.CharField(max_length=255, null=False, blank=False, unique=True)
     institution = models.OneToOneField(InstitutionProfile, related_name='container')
 

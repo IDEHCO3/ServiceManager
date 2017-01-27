@@ -21,3 +21,6 @@ CA/*
 
 #database backup
 backup/*
+
+#nginx
+nginx/*

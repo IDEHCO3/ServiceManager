@@ -1,9 +1,9 @@
 (function() {
-    var base = "/idehco3/servicemanager/";
+    var base = "/servicemanager/";
     var urls = {
         home : base,
-        authetication : "/idehco3/universaluser/authentication/index",
-        authentication_me : "/idehco3/universaluser/authentication/me",
+        authetication : "/universaluser/authentication/index",
+        authentication_me : "/universaluser/authentication/me",
     };
     var app = angular.module("auth", [])
         .config(function ($interpolateProvider) {

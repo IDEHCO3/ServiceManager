@@ -16,6 +16,6 @@ Including another URLconf
 from django.conf.urls import include, url
 
 urlpatterns = [
-    url(r'^idehco3/servicemanager/', include('pages.urls', namespace='pages')),
-    url(r'^idehco3/servicemanager/institutions/', include('institution.urls', namespace='institutions'))
+    url(r'^servicemanager/', include('pages.urls', namespace='pages')),
+    url(r'^servicemanager/institutions/', include('institution.urls', namespace='institutions'))
 ]

@@ -6,9 +6,9 @@
         });
 
     var urls ={
-        base: '/idehco3/servicemanager/',
-        profile: '/idehco3/servicemanager/institutions/profile/',
-        institutions: '/idehco3/servicemanager/institutions/',
+        base: '/servicemanager/',
+        profile: '/servicemanager/institutions/profile/',
+        institutions: '/servicemanager/institutions/',
         links: '/links/',
         container: '/container/'
     };
